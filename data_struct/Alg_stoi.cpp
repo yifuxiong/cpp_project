@@ -13,7 +13,7 @@ int main() {
 
     // 转成字符串后去掉前导零
     string bin = bitset<32>(n).to_string();
-    bin = bin.substr(bin.find(1));
+    bin = bin.substr(bin.find('1'));
     // 输出：101010
     cout << bin << endl;
 
