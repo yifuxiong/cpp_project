@@ -110,10 +110,85 @@ void func3()
     }
 }
 
+// sort
+void func4()
+{
+    vector<int> nums = {5, 2, 4, 3, 1};
+    sort(nums.begin(), nums.end());
+    for (int num : nums)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    // 降序：传入自定义比较函数（lambda 表达式）
+    sort(nums.begin(), nums.end(), [](int a, int b)
+         { return a > b; });
+    for (int num : nums)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+/**
+ * 按照字符串大小排序
+ *
+ * 如果是纯字符串，可以直接重载运算符，直接用 >, <, ==
+ * 但是如果是数字型字符串，用重载的运算符直接比价可能有坑，比如 "9" > "10"，因为 "9" > "1"，要用 `stoi/stoll` 转数字再比，当然也可以用string::compare()来比较
+ */
+void func5()
+{
+    vector<string> words = {"banana", "apple", "kiwi", "cherry"};
+
+    sort(words.begin(), words.end(), [](string &a, string &b)
+         { return a > b; });
+
+    for (string &word : words)
+    {
+        cout << word << " ";
+    }
+    cout << endl;
+}
+
+/**
+ * 多级排序
+ */
+struct Student
+{
+    string name;
+    int score;
+};
+
+void func6()
+{
+    vector<Student> students = {
+        {"Charlie", 85},
+        {"Alice", 92},
+        {"Bob", 85},
+        {"Amy", 85}};
+
+    sort(students.begin(), students.end(), [](Student &a, Student &b)
+         {
+        // 先按分数降序
+        if (a.score != b.score) {
+            return a.score > b.score;
+        }
+        return a.name < b.name; });
+
+    for (Student &student : students)
+    {
+        cout << student.name << ": " << student.score << endl;
+    }
+    cout << endl;
+}
+
 int main()
 {
-    func2();
-    func3();
-    
+    // func2();
+    // func3();
+    // func4();
+    // func5();
+    func6();
     return 0;
 }
